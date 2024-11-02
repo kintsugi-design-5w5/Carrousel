@@ -1,28 +1,15 @@
 (function () {
-    // console.log('début du carrousel')
     let carrousel = document.querySelector(".carrousel");
-    // console.log("carrousel = " + carrousel.tagName)
-    let bouton = document.querySelector(".bouton__ouvrir");
-    // console.log("bouton = " + bouton.tagName)
     let carrousel__x = document.querySelector(".carrousel__x");
-
     let galerie = document.querySelector(".galerie");
-    // let galerie__img = galerie.querySelector('img') // première image seulement
-
     let carrousel__figure = document.querySelector(".carrousel__figure");
-
-    let galerie__img = galerie.querySelectorAll("img"); // la collection des images de la galerie
-
+    let galerie__img = galerie.querySelectorAll(".projet-image img");
     let carrousel__form = document.querySelector(".carrousel__form");
     let carrousel__conteneur__boutons = document.querySelector(".conteneur__boutons");
-
-    let index = 0;
-
-    let indexCarrousel = 0;
-
     let fond__noir = document.querySelector(".fond");
-
     let body = document.querySelector("body");
+    let indexCarrousel = 0;
+    let index = 0;
 
     // RADIO 1
     let carrousel__fleche__gauche = document.createElement("button");
@@ -96,15 +83,6 @@
         body.classList.add("bloquer__scroll");
     }
 
-    // function afficherImage(index) {
-    //     if ((img__affiche__avant = document.querySelector(".carrousel__img.img--afficher"))) {
-    //         let img__affiche__avant = document.querySelector(".carrousel__img.img--afficher");
-    //         img__affiche__avant.classList.remove("img--afficher");
-    //     }
-
-    //     let img__afficher_apres = document.querySelectorAll(".carrousel__img")[index];
-    //     img__afficher_apres.classList.add("img--afficher");
-    // }
     function afficherImage(index) {
         let imgs = document.querySelectorAll(".carrousel__img");
         imgs.forEach((img, i) => {
@@ -126,18 +104,14 @@
     // Si on clique sur le fond noir, on ferme le carrousel
 
     fond__noir.addEventListener("click", function () {
-        // console.log("fond noir click");
         carrousel__figure.classList.remove("carrousel--ouvrir");
-        //carrousel__figure.classList.add("carrousel--fermer");
         setTimeout(fermerCarrousel, 250);
         body.classList.remove("bloquer__scroll");
     });
 
     //Fermer le carrousel
     carrousel__x.addEventListener("mousedown", function () {
-        // console.log("bouton mousedown ");
         carrousel__figure.classList.remove("carrousel--ouvrir");
-        //carrousel__figure.classList.add("carrousel--fermer");
         setTimeout(fermerCarrousel, 250);
         body.classList.remove("bloquer__scroll");
     });
@@ -148,7 +122,6 @@
     function fermerCarrousel() {
         fond__noir.classList.remove("fond__afficher");
         carrousel.classList.remove("carrousel--ouvert");
-        // carrousel__figure.classList.remove("carrousel--fermer");
     }
 
     //Fleche 2
@@ -159,8 +132,6 @@
 
     //FLECHES
     const carrouselImages = document.querySelectorAll(".carrousel__img");
-
-    //index carrousel = l'index de l'image affichée
 
     carrousel__fleche__gauche.addEventListener("click", () => {
         if (indexCarrousel > 0) {
