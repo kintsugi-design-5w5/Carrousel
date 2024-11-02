@@ -1,10 +1,10 @@
-# TP2 Plug In Carrousel
+# TIM Plug In Carrousel
 
 ## Auteur
 
 -   [Vincent Genest](https://github.com/vincent-genest)
--   582-4W4-MA CONCEPTION D'INTERFACES ET DÉVELOPPEMENT WEB
--   gr. 00002
+-   582-5W5-MA PROJET WEB EN ÉQUIPE
+-   Équipe 1-4
 
 ## Description
 
@@ -15,7 +15,7 @@ Le plugin de carrousel est conçu pour afficher des images dans un format de car
 -   Affichage d'images dans un carrousel interactif
 -   Crée des points pour naviguer facilement
 -   Ouvrable avec un clic sur les images
--   Fermable avec le bouton x o en cliquant sur le fond
+-   Fermable avec le bouton x ou en cliquant sur le fond
 -   Adaptable
 
 ## Installation
@@ -35,6 +35,9 @@ Le plugin de carrousel est conçu pour afficher des images dans un format de car
 
 ### Liens supplémentaires :
 
--   Lien vers le serveur distant WHC : [Serveur WHC](https://gftnth00.mywhc.ca/tim41/)
--   Lien vers ma GitHub page de la page d'accueil : [Page GitHub](https://vincent-genest.github.io/4w4-2024-gr2/)
--   Lien vers le le dépôt Github : [Dépôt GitHub](https://github.com/vincent-genest/4w4-wp-content)
+-   Lien vers la GitHub Page : [GitHub Page](https://kintsugi-design-5w5.github.io/TIM/)
+-   Lien vers le WHC : [WHC](https://gftnth00.mywhc.ca/tim43/)
+-   Lien vers le dépôt Github du carrousel : [Dépôt GitHub Carrousel](https://github.com/kintsugi-design-5w5/Carrousel)
+-   Lien vers le dépôt Github du site : [Dépôt GitHub Site](https://github.com/kintsugi-design-5w5/TIM)
+-   Lien vers le Github Project : [Projet GitHub](https://github.com/orgs/kintsugi-design-5w5/projects/1)
+-   Lien vers le backlog GoogleSheet : [Google sheet](https://docs.google.com/spreadsheets/d/1I3-XLNHhBte0TZOc5cQbXzM9ZsGxMTRsRGayoXEZaSg/edit?usp=sharing)
