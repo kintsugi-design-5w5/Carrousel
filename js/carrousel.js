@@ -1,185 +1,94 @@
 (function () {
-    let carrousel = document.querySelector(".carrousel");
-    let carrousel__x = document.querySelector(".carrousel__x");
-    let galerie = document.querySelector(".galerie");
-    let carrousel__figure = document.querySelector(".carrousel__figure");
-    let galerie__img = galerie.querySelectorAll(".projet-image img");
-    let carrousel__form = document.querySelector(".carrousel__form");
-    let carrousel__conteneur__boutons = document.querySelector(".conteneur__boutons");
-    let fond__noir = document.querySelector(".fond");
-    let body = document.querySelector("body");
-    let indexCarrousel = 0;
-    let index = 0;
+    // Sélectionner les éléments HTML nécessaires
+    const carrousel = document.querySelector(".carrousel"); // Conteneur du carrousel
+    const carrouselX = document.querySelector(".carrousel__x"); // Bouton de fermeture du carrousel
+    const galerie = document.querySelector(".galerie"); // Conteneur des images de la galerie
+    const carrouselFigure = document.querySelector(".carrousel__figure"); // Conteneur des images du carrousel
+    const galerieImages = galerie.querySelectorAll(".projet-image img"); // Sélectionner toutes les images dans la galerie
+    const fondNoir = document.querySelector(".fond"); // Fond sombre pour la superposition
+    const body = document.body; // Le corps de la page, utilisé pour empêcher le défilement lors de l'ouverture du carrousel
+    let indexCarrousel = 0; // L'index de l'image actuellement affichée dans le carrousel
 
-    // RADIO 1
-    let carrousel__fleche__gauche = document.createElement("button");
-    carrousel__fleche__gauche.innerHTML = "➜";
-    carrousel__fleche__gauche.type = "button";
-    // carrousel__form.appendChild(carrousel__fleche__gauche);
-    carrousel__form.insertBefore(carrousel__fleche__gauche, carrousel__conteneur__boutons);
+    // Créer les images dans le carrousel à partir des images de la galerie
+    galerieImages.forEach((elm, index) => {
+        creerImageCarrousel(index, elm); // Appeler la fonction pour créer chaque image
+    });
 
-    for (const elm of galerie__img) {
-        creer_image_carrousel(index, elm);
-        creer_radio_carrousel(index);
+    // Fonction pour créer les images du carrousel à partir des images de la galerie
+    function creerImageCarrousel(index, elm) {
+        const carrouselImg = document.createElement("img"); // Créer une nouvelle image pour le carrousel
+        carrouselImg.classList.add("carrousel__img"); // Ajouter la classe pour les styles du carrousel
+        carrouselImg.dataset.index = index; // Définir l'index de l'image pour la navigation
+        elm.dataset.index = index; // Ajouter l'index à l'image dans la galerie pour la synchronisation
+        carrouselImg.src = elm.src; // Assigner la source de l'image
+        carrouselFigure.appendChild(carrouselImg); // Ajouter l'image au conteneur du carrousel
 
-        index++;
+        // Ajouter un événement de clic à chaque image de la galerie pour ouvrir le carrousel
+        elm.addEventListener("click", ouvrirCarrousel);
     }
 
-    /**
-     * Créer une image pour chaque image de la galerie
-     * @param {number} index    index de l'image
-     * @param {HTMLImageElement} elm    image de la galerie
-     */
-    function creer_image_carrousel(index, elm) {
-        let carrousel__img = document.createElement("img");
-        carrousel__img.classList.add("carrousel__img");
-        carrousel__img.dataset.index = index;
-        elm.dataset.index = index;
-        // console.log(elm.src);
-        carrousel__img.src = elm.src;
-        // console.log(carrousel__img.src);
-        carrousel__figure.appendChild(carrousel__img);
-
-        elm.addEventListener("click", ouvrir_carrousel);
+    // Fonction pour ouvrir le carrousel et afficher l'image sélectionnée
+    function ouvrirCarrousel(e) {
+        indexCarrousel = parseInt(e.target.dataset.index); // Récupérer l'index de l'image cliquée
+        afficherImage(indexCarrousel); // Afficher l'image correspondant à l'index
+        carrousel.classList.add("carrousel--ouvert"); // Ouvrir le carrousel
+        setTimeout(() => carrouselFigure.classList.add("carrousel--ouvrir"), 50); // Appliquer une animation de transition
+        fondNoir.classList.add("fond__afficher"); // Afficher le fond sombre
+        body.classList.add("bloquer__scroll"); // Empêcher le défilement de la page pendant que le carrousel est ouvert
     }
 
-    /**
-     * Créer un bouton radio pour chaque image
-     * @param {number} index numero du radio bouton
-     */
-    function creer_radio_carrousel(index) {
-        // ajouter des boutons radios pour chaque img
-        let radio__bouton = document.createElement("input");
-
-        radio__bouton.setAttribute("value", index);
-        radio__bouton.setAttribute("type", "radio");
-        radio__bouton.setAttribute("name", "carrousel__radio");
-
-        radio__bouton.classList.add("carrousel__radio");
-        carrousel__conteneur__boutons.appendChild(radio__bouton);
-
-        // Si on choisi le bouton radio, on met la classe img--afficher à l'image correspondanteselon l'index
-        radio__bouton.addEventListener("change", function () {
-            afficherImage(index);
-        });
-    }
-
-    /**
-     * Ouvrir le carrousel
-     * @param {MouseEvent} e
-     */
-    function ouvrir_carrousel(e) {
-        let index = e.target.dataset.index;
-        indexCarrousel = index;
-        afficherImage(index);
-        carrousel.classList.add("carrousel--ouvert");
-        setTimeout(ouvrirCarrousel, 50);
-
-        //selectionner le bons boutons radio
-        let radio__bouton = document.querySelectorAll(".carrousel__radio");
-        radio__bouton[index].checked = true;
-
-        fond__noir.classList.add("fond__afficher");
-        body.classList.add("bloquer__scroll");
-    }
-
+    // Fonction pour afficher l'image correspondant à l'index actuel
     function afficherImage(index) {
-        let imgs = document.querySelectorAll(".carrousel__img");
-        imgs.forEach((img, i) => {
-            img.classList.remove("img--gauche");
-            img.classList.remove("img--droite");
-            img.classList.remove("img--transition");
-            indexCarrousel = index;
-            if (i == index) {
-                img.classList.add("img--afficher");
-            } else {
-                img.classList.remove("img--afficher");
-            }
+        document.querySelectorAll(".carrousel__img").forEach((img, i) => {
+            img.classList.toggle("img--afficher", i === index); // Afficher l'image correspondant à l'index
+            img.classList.remove("img--gauche", "img--droite", "img--transition"); // Retirer les classes de transition
         });
-
-        let radio__bouton = document.querySelectorAll(".carrousel__radio");
-        radio__bouton[index].checked = true;
     }
 
-    // Si on clique sur le fond noir, on ferme le carrousel
+    // Ajouter un événement de clic sur le fond sombre pour fermer le carrousel
+    fondNoir.addEventListener("click", fermerCarrousel);
+    // Ajouter un événement de clic sur le bouton de fermeture pour fermer le carrousel
+    carrouselX.addEventListener("mousedown", fermerCarrousel);
 
-    fond__noir.addEventListener("click", function () {
-        carrousel__figure.classList.remove("carrousel--ouvrir");
-        setTimeout(fermerCarrousel, 250);
-        body.classList.remove("bloquer__scroll");
-    });
-
-    //Fermer le carrousel
-    carrousel__x.addEventListener("mousedown", function () {
-        carrousel__figure.classList.remove("carrousel--ouvrir");
-        setTimeout(fermerCarrousel, 250);
-        body.classList.remove("bloquer__scroll");
-    });
-
-    function ouvrirCarrousel() {
-        carrousel__figure.classList.add("carrousel--ouvrir");
-    }
+    // Fonction pour fermer le carrousel
     function fermerCarrousel() {
-        fond__noir.classList.remove("fond__afficher");
-        carrousel.classList.remove("carrousel--ouvert");
+        carrouselFigure.classList.remove("carrousel--ouvrir"); // Enlever l'animation d'ouverture
+        setTimeout(() => {
+            fondNoir.classList.remove("fond__afficher"); // Retirer le fond sombre
+            carrousel.classList.remove("carrousel--ouvert"); // Fermer le carrousel
+            body.classList.remove("bloquer__scroll"); // Réactiver le défilement de la page
+        }, 250); // Retarder la fermeture pour permettre à l'animation de se terminer
     }
 
-    //Fleche 2
-    let carrousel__fleche__droite = document.createElement("button");
-    carrousel__fleche__droite.innerHTML = "➜";
-    carrousel__fleche__droite.type = "button";
-    carrousel__form.appendChild(carrousel__fleche__droite);
+    // Sélectionner les boutons de navigation (flèches)
+    const sectionGauche = document.querySelector(".avant"); // Flèche gauche (précédente)
+    const sectionDroite = document.querySelector(".apres"); // Flèche droite (suivante)
 
-    //FLECHES
-    const carrouselImages = document.querySelectorAll(".carrousel__img");
-
-    carrousel__fleche__gauche.addEventListener("click", () => {
-        if (indexCarrousel > 0) {
-            indexCarrousel--;
-        } else {
-            indexCarrousel = carrouselImages.length - 1;
-        }
-        afficherImageParFleche(indexCarrousel, "gauche");
+    // Ajouter un événement de clic pour naviguer à gauche
+    sectionGauche.addEventListener("click", () => {
+        indexCarrousel = indexCarrousel > 0 ? indexCarrousel - 1 : galerieImages.length - 1; // Décrémenter l'index ou revenir à la dernière image
+        afficherImageParFleche(indexCarrousel, "gauche"); // Afficher l'image correspondante
     });
 
-    carrousel__fleche__droite.addEventListener("click", () => {
-        if (indexCarrousel < carrouselImages.length - 1) {
-            indexCarrousel++;
-        } else {
-            indexCarrousel = 0;
-        }
-        afficherImageParFleche(indexCarrousel, "droite");
+    // Ajouter un événement de clic pour naviguer à droite
+    sectionDroite.addEventListener("click", () => {
+        indexCarrousel = indexCarrousel < galerieImages.length - 1 ? indexCarrousel + 1 : 0; // Incrémenter l'index ou revenir à la première image
+        afficherImageParFleche(indexCarrousel, "droite"); // Afficher l'image correspondante
     });
 
+    // Fonction pour afficher l'image en fonction de la direction de la flèche (gauche ou droite)
     function afficherImageParFleche(index, direction) {
-        if (direction === "gauche") {
-            ancienneDirection = "gauche";
-        } else {
-            ancienneDirection = "droite";
-        }
-        carrouselImages.forEach((img, i) => {
-            //On enleve la classe img--gauche ou img--droite a tous
-            img.classList.remove("img--gauche");
-            img.classList.remove("img--droite");
-            img.classList.remove("img--transition");
+        document.querySelectorAll(".carrousel__img").forEach((img, i) => {
+            img.classList.remove("img--gauche", "img--droite", "img--transition", "img--afficher"); // Retirer toutes les classes de transition
 
-            //L'image actuellement affichée est déplacée à gauche ou à droite
-            if (img.classList.contains("img--afficher")) {
-                img.classList.add("img--" + direction);
-            }
-
-            //On enleve la classe img--afficher à tous
-            img.classList.remove("img--afficher");
-
-            //On affiche l'image correspondante à l'index
             if (i === index) {
-                img.classList.add("img--transition");
-                img.classList.remove("img--gauche");
-                img.classList.remove("img--droite");
-                img.classList.add("img--afficher");
+                img.classList.add("img--transition", "img--afficher"); // Ajouter des classes pour l'animation
+            } else if (img.classList.contains("img--afficher")) {
+                img.classList.add("img--" + direction); // Ajouter la classe de direction (gauche ou droite)
             }
         });
-        let radio__bouton = document.querySelectorAll(".carrousel__radio");
-        radio__bouton[index].checked = true;
     }
+
+    // Initialiser le carrousel avec l'image par défaut affichée
+    afficherImage(indexCarrousel);
 })();
