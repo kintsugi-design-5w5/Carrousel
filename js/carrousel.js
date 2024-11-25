@@ -64,6 +64,8 @@
     const sectionGauche = document.querySelector(".avant"); // Flèche gauche (précédente)
     const sectionDroite = document.querySelector(".apres"); // Flèche droite (suivante)
 
+    //selon la largeur de l'image, on la coupe en deux et on l'applique ax deux
+
     // Ajouter un événement de clic pour naviguer à gauche
     sectionGauche.addEventListener("click", () => {
         indexCarrousel = indexCarrousel > 0 ? indexCarrousel - 1 : galerieImages.length - 1; // Décrémenter l'index ou revenir à la dernière image
