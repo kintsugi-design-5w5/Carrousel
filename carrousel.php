@@ -44,9 +44,14 @@ function genere_html() {
         <div class="fond"></div>
         <figure class="carrousel__figure">
             <!-- Boutons pour naviguer dans le carrousel -->
-            <div class="bouton-demi avant cliquable" data-icone="west"></div>
-            <div class="bouton-demi apres cliquable" data-icone="east"></div>
-            
+            <div class="bouton-demi avant cliquable" data-icone="west">
+                <div class="fleche-mobile"><span class="material-symbols-outlined">west</span></div>
+            </div>
+            <div class="bouton-demi apres cliquable" data-icone="east">
+                <div class="fleche-mobile"><span class="material-symbols-outlined">east</span></div> 
+            </div>
+            <div class="centreur"></div>
+
             <!-- Bouton pour fermer le carrousel -->
             <button class="carrousel__x">
                 <svg class="burger burgerTourne cliquable active" data-icone="close" viewBox="0 0 100 100" width="80">

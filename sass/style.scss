@@ -1,5 +1,5 @@
 .fond {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -21,15 +21,14 @@
     flex-direction: column;
     align-items: center;
     // transform: scale(0);
-    width: 100%;
-    height: 100%;
-    top: 50%;
-    //left: 25%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    // transition: transform 0.25s ease;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    // top: 50%;
+    // left: 48%;
+    // transform: translate(-50%, -50%);
     z-index: 101;
-    //pointer-events: none;
 }
 
 .carrousel__x {
@@ -38,16 +37,16 @@
     pointer-events: auto;
     top: -7vw;
     right: -7vw;
-
-    @media screen and (max-width: 756px) {
-        top: -13vw;
-        right: -13vw;
-    }
     // top: 3rem;
     // right: 3rem;
     // padding: 0 10px;
     background-color: transparent;
     border: transparent;
+
+    @media screen and (max-width: 756px) {
+        top: 0rem;
+        right: 0rem;
+    }
     .icone_burger {
         rotate: 45deg;
         transition: transform 0.25s ease;
@@ -74,12 +73,24 @@
     transform: scale(0);
     transition: transform 0.25s ease;
     pointer-events: none;
+
+    @media screen and (max-width: 756px) {
+        width: 90vw;
+        height: 90vh;
+    }
 }
 .carrousel--ouvrir {
     transform: scale(1);
 }
 .carrousel--ouvert {
     display: flex;
+}
+.centreur {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .carrousel__img {
     opacity: 0;
@@ -88,9 +99,9 @@
     //max-width: 80vw;
     max-height: 100%;
     object-fit: cover;
-    top: 0;
+    top: 50%;
     left: 50%;
-    transform: translate(-50%);
+    transform: translateX(-50%) translateY(-50%);
     margin: 0;
     transition: opacity 0.5s ease-in-out, transform 1s ease-in-out;
     pointer-events: none;
@@ -118,6 +129,10 @@
     position: absolute;
     top: 0;
     pointer-events: visible;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
     &.avant {
         left: 0;
     }
@@ -125,4 +140,29 @@
         right: 0;
     }
     z-index: 40;
+}
+.bouton-demi.apres {
+    justify-content: flex-end;
+}
+.fleche-mobile {
+    display: none;
+    backdrop-filter: blur(5px);
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    margin: 0 0.5rem;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    // transform: translate(-50%, -50%);
+    background-color: rgb(28, 28, 28, 0.5); /* Couleur noire */
+
+    @media screen and (max-width: 756px) {
+        display: flex;
+    }
+}
+
+.bloquer__scroll {
+    overflow: hidden;
+    height: 100vh; /* Empêche le contenu de dépasser l'écran */
 }
